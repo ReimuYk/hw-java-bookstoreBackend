@@ -1,4 +1,4 @@
-//package bookstore;
+//package restbs.rest.bookstore;
 //
 //import org.slf4j.Logger;
 //

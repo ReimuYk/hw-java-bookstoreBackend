@@ -1,10 +1,7 @@
-package bookstore;
+package restbs.rest.bookstore;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import bookstore.CustomerRepository;
-
-import javax.transaction.Transactional;
 
 @Service
 public class datactrl {

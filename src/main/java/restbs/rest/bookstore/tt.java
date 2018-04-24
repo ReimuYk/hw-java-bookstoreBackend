@@ -1,4 +1,4 @@
-package bookstore;
+package restbs.rest.bookstore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

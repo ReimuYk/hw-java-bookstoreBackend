@@ -1,4 +1,4 @@
-package bookstore;
+package restbs.rest.bookstore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +16,7 @@ public class book {
     private String date;
     private String publish;
 
-    protected book() {}
+    public book() {}
 
     public book(String name, String writer,double price,String date,String publish) {
         this.name=name;
@@ -25,6 +25,16 @@ public class book {
         this.date=date;
         this.publish=publish;
     }
+
+    public void setName(String name){ this.name = name; }
+
+    public void setWriter(String writer){ this.writer = writer; }
+
+    public void setPrice(double price){ this.price = price; }
+
+    public void setDate(String date){ this.date = date; }
+
+    public void setPublish(String publish){ this.publish = publish; }
 
     @Override
     public String toString() {
