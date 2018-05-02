@@ -27,14 +27,17 @@ public class book {
     }
 
     public void setName(String name){ this.name = name; }
-
     public void setWriter(String writer){ this.writer = writer; }
-
     public void setPrice(double price){ this.price = price; }
-
     public void setDate(String date){ this.date = date; }
-
     public void setPublish(String publish){ this.publish = publish; }
+
+    public Long getId(){ return this.id;}
+    public String getName(){ return this.name; }
+    public String getWriter() {return this.writer;}
+    public double getPrice() { return this.price;}
+    public String getDate() { return this.date;}
+    public String getPublish() { return this.publish;}
 
     @Override
     public String toString() {
