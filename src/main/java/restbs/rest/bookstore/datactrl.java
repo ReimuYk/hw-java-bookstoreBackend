@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class datactrl {
     @Autowired
-    protected CustomerRepository cRepo;
+    protected bookRepository cRepo;
 
     @Autowired
     protected  roleRepository rRepo;
@@ -108,6 +108,53 @@ public class datactrl {
             return r.getType();
         }
         return "NotLogin";
+    }
+
+    public JSONObject getUserInfo(String username){
+        List<role> rlist = rRepo.findByEmail(username);
+        if (rlist.isEmpty()){
+            rlist = rRepo.findByNickname(username);
+        }
+        if (rlist.isEmpty()){
+            return null;
+        }
+        role r = rlist.get(0);
+        JSONObject res = new JSONObject();
+        res.put("email",r.getEmail());
+        res.put("nickname",r.getNickname());
+        res.put("phone",r.getPhone());
+        res.put("website",r.getWebsite());
+        res.put("usertype",r.getType());
+        return res;
+    }
+
+    public String modifyUser(JSONObject data){
+        List<role> rlist = rRepo.findByEmail(data.getString("email"));
+        if (rlist.isEmpty()){
+            return "Error";
+        }
+        role r = rlist.get(0);
+        r.setPhone(data.getString("phone"));
+        r.setWebsite(data.getString("website"));
+        rRepo.save(r);
+        return "Success";
+    }
+
+    public String modifyUserPwd(JSONObject data){
+        List<role> rlist = rRepo.findByEmail(data.getString("email"));
+        if (rlist.isEmpty()){
+            return "Error:identify username";
+        }
+        role r = rlist.get(0);
+        if (!data.getString("oldpwd").equals(r.getPassword())){
+            return "Error:incorrect password";
+        }
+        if (!data.getString("newpwd1").equals(data.getString("newpwd2"))){
+            return "Error:two different passwords";
+        }
+        r.setPassword(data.getString("newpwd1"));
+        rRepo.save(r);
+        return "Success";
     }
 
     public String deletedata(JSONObject data){

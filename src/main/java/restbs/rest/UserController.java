@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import restbs.rest.bookstore.datactrl;
+import restbs.rest.bookstore.orderformCtrl;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,9 @@ public class UserController {
 
     @Autowired
     private datactrl db;
+
+    @Autowired
+    private orderformCtrl order;
 
     @RequestMapping(value = "/getbookdata",method = RequestMethod.GET)
     public
@@ -86,6 +90,62 @@ public class UserController {
             }
         }
         return this.db.rememberLogin(name,password);
+    }
+
+    @RequestMapping(value = "/services/orderlist",method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONArray orderlist(HttpServletRequest httpRequest, HttpServletResponse httpServletResponse) {
+        Cookie[] cookies = httpRequest.getCookies();
+        for (Cookie cc:cookies){
+            if (cc.getName().equals("username")){
+                System.out.println("getusername");
+                return this.order.getUserList(cc.getValue());
+            }
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/services/createorder",method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String createorder(HttpServletRequest httpRequest, @RequestBody JSONObject data) {
+        Cookie[] cookies = httpRequest.getCookies();
+        for (Cookie cc:cookies){
+            if (cc.getName().equals("username")){
+                data.put("username",cc.getValue());
+            }
+        }
+        System.out.println(data);
+        return this.order.createOrder(data);
+    }
+
+    @RequestMapping(value = "/services/getuserinfo",method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONObject getuserinfo(HttpServletRequest httpRequest, HttpServletResponse httpServletResponse) {
+        Cookie[] cookies = httpRequest.getCookies();
+        for (Cookie cc:cookies){
+            if (cc.getName().equals("username")){
+                System.out.println("getusername");
+                return this.db.getUserInfo(cc.getValue());
+            }
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/services/modifyuserinfo",method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String modifyuserinfo(@RequestBody JSONObject data){
+        return this.db.modifyUser(data);
+    }
+
+    @RequestMapping(value = "/services/modifypwd",method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String modifypwd(@RequestBody JSONObject data){
+        return this.db.modifyUserPwd(data);
     }
 
     @RequestMapping(value = "/cookies",method = RequestMethod.GET)
