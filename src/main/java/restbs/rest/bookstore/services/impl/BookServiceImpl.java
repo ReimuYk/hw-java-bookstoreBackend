@@ -1,19 +1,24 @@
-package restbs.rest.bookstore;
+package restbs.rest.bookstore.services.impl;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import restbs.rest.bookstore.model.book;
+import restbs.rest.bookstore.dao.bookRepository;
+import restbs.rest.bookstore.model.role;
+import restbs.rest.bookstore.dao.roleRepository;
+import restbs.rest.bookstore.services.BookService;
 
 import java.util.List;
 
 @Service
-public class datactrl {
+public class BookServiceImpl implements BookService {
     @Autowired
     protected bookRepository cRepo;
 
     @Autowired
-    protected  roleRepository rRepo;
+    protected roleRepository rRepo;
 
     public JSONArray getbookdata(){
         Iterable<book> booklist = cRepo.findAll();

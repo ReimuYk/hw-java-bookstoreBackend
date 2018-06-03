@@ -1,9 +1,14 @@
-package restbs.rest.bookstore;
+package restbs.rest.bookstore.services.impl;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import restbs.rest.bookstore.model.role;
+import restbs.rest.bookstore.model.orderform;
+import restbs.rest.bookstore.dao.orderformRepository;
+import restbs.rest.bookstore.dao.roleRepository;
+import restbs.rest.bookstore.services.OrderformService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,9 +16,9 @@ import java.util.HashSet;
 import java.util.List;
 
 @Service
-public class orderformCtrl {
+public class OrderformServiceImpl implements OrderformService {
     @Autowired
-    protected  orderformRepository oRepo;
+    protected orderformRepository oRepo;
 
     @Autowired
     protected roleRepository rRepo;

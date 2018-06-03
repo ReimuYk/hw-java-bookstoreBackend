@@ -1,4 +1,4 @@
-package restbs.rest;
+package restbs.rest.bookstore.controller;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -8,13 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import restbs.rest.bookstore.datactrl;
-import restbs.rest.bookstore.orderformCtrl;
+import restbs.rest.bookstore.services.BookService;
+import restbs.rest.bookstore.services.OrderformService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Response;
 
 @CrossOrigin
 @RestController
@@ -23,10 +22,10 @@ public class UserController {
     protected static Logger logger=LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    private datactrl db;
+    private BookService db;
 
     @Autowired
-    private orderformCtrl order;
+    private OrderformService order;
 
     @RequestMapping(value = "/getbookdata",method = RequestMethod.GET)
     public
