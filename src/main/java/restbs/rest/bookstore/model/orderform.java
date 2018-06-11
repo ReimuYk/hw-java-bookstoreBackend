@@ -8,8 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class orderform {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Long id;
+    private String id;
     private String orderid;
     private Long userid;
     private Long bookid;
