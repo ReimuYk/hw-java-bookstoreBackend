@@ -4,8 +4,10 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import restbs.rest.bookstore.dao.bookImgRepository;
 import restbs.rest.bookstore.model.book;
 import restbs.rest.bookstore.dao.bookRepository;
+import restbs.rest.bookstore.model.bookImg;
 import restbs.rest.bookstore.model.role;
 import restbs.rest.bookstore.dao.roleRepository;
 import restbs.rest.bookstore.services.BookService;
@@ -20,6 +22,9 @@ public class BookServiceImpl implements BookService {
     @Autowired
     protected roleRepository rRepo;
 
+    @Autowired
+    protected bookImgRepository bimgRepo;
+
     public JSONArray getbookdata(){
         Iterable<book> booklist = cRepo.findAll();
         JSONArray res = new JSONArray();
@@ -31,6 +36,10 @@ public class BookServiceImpl implements BookService {
             item.accumulate("price",b.getPrice());
             item.accumulate("publish",b.getPublish());
             item.accumulate("date",b.getDate());
+            List<bookImg> bimglist = bimgRepo.findByBookid(b.getId());
+            if (!bimglist.isEmpty()){
+                item.accumulate("picture",bimglist.get(0).getImage());
+            }
             res.add(item);
         }
         return res;
@@ -49,6 +58,7 @@ public class BookServiceImpl implements BookService {
     }
 
     public String newdata(JSONObject data){
+        System.out.println(data);
         book b = new book();
         b.setName(data.getString("name"));
         b.setPrice(data.getDouble("cost"));
@@ -56,6 +66,13 @@ public class BookServiceImpl implements BookService {
         b.setDate(data.getString("date"));
         b.setPublish(data.getString("publish"));
         cRepo.save(b);
+        System.out.println(b.getId());
+        if (data.has("picture")){
+            bookImg bimg = new bookImg();
+            bimg.setBookid(b.getId());
+            bimg.setImage(data.getString("picture"));
+            bimgRepo.save(bimg);
+        }
         return "new success";
     }
 
