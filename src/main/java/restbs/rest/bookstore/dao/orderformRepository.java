@@ -8,7 +8,7 @@ import restbs.rest.bookstore.model.orderform;
 import java.util.List;
 
 @Repository("oRepo")
-public interface orderformRepository extends MongoRepository<orderform,String> {
+public interface orderformRepository extends CrudRepository<orderform,Long> {
     List<orderform> findByUserid(Long userid);
     List<orderform> findByOrderid(String orderid);
 }

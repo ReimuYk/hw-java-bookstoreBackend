@@ -36,6 +36,8 @@ public class BookServiceImpl implements BookService {
             item.accumulate("price",b.getPrice());
             item.accumulate("publish",b.getPublish());
             item.accumulate("date",b.getDate());
+            item.accumulate("category",b.getCategory());
+            item.accumulate("leftnum",b.getLeftnum());
             List<bookImg> bimglist = bimgRepo.findByBookid(b.getId());
             if (!bimglist.isEmpty()){
                 item.accumulate("picture",bimglist.get(0).getImage());
@@ -52,6 +54,8 @@ public class BookServiceImpl implements BookService {
         b.setWriter(data.getString("writer"));
         b.setDate(data.getString("date"));
         b.setPublish(data.getString("publish"));
+        b.setCategory(data.getString("category"));
+        b.setLeftnum(data.getInt("leftnum"));
         System.out.println(b.toString());
         cRepo.save(b);
     ;   return "modify success";
@@ -65,6 +69,8 @@ public class BookServiceImpl implements BookService {
         b.setWriter(data.getString("writer"));
         b.setDate(data.getString("date"));
         b.setPublish(data.getString("publish"));
+        b.setCategory(data.getString("category"));
+        b.setLeftnum(data.getInt("leftnum"));
         cRepo.save(b);
         System.out.println(b.getId());
         if (data.has("picture")){
@@ -189,14 +195,14 @@ public class BookServiceImpl implements BookService {
         System.out.println("startinit");
         System.out.println(this.cRepo);
         System.out.println("init lists");
-        cRepo.save(new book("bookname","bookwriter",99.80,"2015.08.09","bookpublish"));
+        cRepo.save(new book("bookname","bookwriter",99.80,"2015.08.09","bookpublish","default",30));
     }
 
     public void insert(){
-        cRepo.save(new book("bookname1","bookwriter1",99.80,"2015.08.10","bookpublish1"));
-        cRepo.save(new book("bookname2","bookwriter2",99.80,"2015.08.11","bookpublish2"));
-        cRepo.save(new book("bookname3","bookwriter3",99.80,"2015.08.12","bookpublish3"));
-        cRepo.save(new book("bookname4","bookwriter4",99.80,"2015.08.13","bookpublish4"));
+        cRepo.save(new book("bookname1","bookwriter1",99.80,"2015.08.10","bookpublish1","fiction",25));
+        cRepo.save(new book("bookname2","bookwriter2",99.80,"2015.08.11","bookpublish2","science",35));
+        cRepo.save(new book("bookname3","bookwriter3",99.80,"2015.08.12","bookpublish3","fiction",25));
+        cRepo.save(new book("bookname4","bookwriter4",99.80,"2015.08.13","bookpublish4","science",25));
     }
 
     public void modify(){

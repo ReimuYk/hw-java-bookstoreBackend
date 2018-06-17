@@ -27,6 +27,19 @@ public class UserController {
     @Autowired
     private OrderformService order;
 
+    @RequestMapping(value = "/getorderdata",method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONArray getorderdata(){
+        return this.order.getorderdata();
+    }
+
+    @RequestMapping(value = "/getselectorder",method = RequestMethod.GET)
+    public
+    JSONArray getSelectData(@RequestParam String timedown,@RequestParam String timeup,@RequestParam String category,@RequestParam String writername, @RequestParam String username){
+        return this.order.getSelectData(timedown,timeup,category,username,writername);
+    }
+
     @RequestMapping(value = "/getbookdata",method = RequestMethod.GET)
     public
     @ResponseBody

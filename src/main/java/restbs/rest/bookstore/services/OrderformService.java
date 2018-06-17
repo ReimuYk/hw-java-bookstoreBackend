@@ -19,5 +19,7 @@ public interface OrderformService {
 
     public JSONArray getUserList(String username);
 
+    public JSONArray getorderdata();
 
+    public JSONArray getSelectData(String timedown,String timeup,String category,String username,String writername);
 }
