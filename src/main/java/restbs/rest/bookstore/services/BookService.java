@@ -31,6 +31,12 @@ public interface BookService {
 
     public String deletedata(JSONObject data);
 
+    public String modifyuserdata(JSONObject data);
+
+    public String deleteuserdata(JSONObject data);
+
+    public JSONArray getAllUsers();
+
     public void init();
 
     public void insert();

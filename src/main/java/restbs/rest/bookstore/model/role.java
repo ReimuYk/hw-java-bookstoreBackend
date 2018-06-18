@@ -18,6 +18,7 @@ public class role {
     private String phone;
     private String website;
     private String type;
+    private int valid;
 
     public role() {}
 
@@ -29,6 +30,7 @@ public class role {
         this.phone = phone;
         this.website = website;
         this.type = "user";
+        this.valid = 1;
     }
 
     public void setEmail(String email){ this.email = email; }
@@ -38,6 +40,7 @@ public class role {
     public void setPhone(String phone){ this.phone = phone;}
     public void setWebsite(String website){ this.website = website;}
     public void setType(String type){this.type = type;}
+    public void setValid(int valid){this.valid = valid;}
 
     public Long getId(){ return this.id;}
     public String getEmail(){ return this.email; }
@@ -47,6 +50,7 @@ public class role {
     public String getPhone(){return this.phone;}
     public String getWebsite(){return this.website;}
     public String getType(){return this.type;}
+    public int getValid(){return this.valid;}
 
 
     @Override

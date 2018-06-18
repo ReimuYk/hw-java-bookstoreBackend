@@ -40,6 +40,13 @@ public class UserController {
         return this.order.getSelectData(timedown,timeup,category,username,writername);
     }
 
+    @RequestMapping(value = "/getallusers",method = RequestMethod.GET)
+    public
+    @ResponseBody
+    JSONArray getallusers(){
+        return this.db.getAllUsers();
+    }
+
     @RequestMapping(value = "/getbookdata",method = RequestMethod.GET)
     public
     @ResponseBody
@@ -52,6 +59,18 @@ public class UserController {
     @ResponseBody
     String modifydata(@RequestBody JSONObject data){
         return this.db.modifydata(data);
+    }
+
+    @RequestMapping(value = "/services/modifyuserdata",method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String modifyuserdata(@RequestBody JSONObject data){ return this.db.modifyuserdata(data);}
+
+    @RequestMapping(value = "/services/deleteuserdata",method = RequestMethod.POST)
+    public
+    @ResponseBody
+    String deleteuserdata(@RequestBody JSONObject data){
+        return this.db.deleteuserdata(data);
     }
 
     @RequestMapping(value = "/services/deletedata",method = RequestMethod.POST)

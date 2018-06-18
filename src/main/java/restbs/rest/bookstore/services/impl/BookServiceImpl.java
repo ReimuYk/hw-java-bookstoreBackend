@@ -82,6 +82,27 @@ public class BookServiceImpl implements BookService {
         return "new success";
     }
 
+    public String modifyuserdata(JSONObject data){
+        System.out.println(data);
+        role r = rRepo.findOne(data.getLong("userid"));
+        r.setNickname(data.getString("nickname"));
+        r.setEmail(data.getString("email"));
+        r.setPassword(data.getString("password"));
+        r.setType(data.getString("type"));
+        r.setWebsite(data.getString("website"));
+        r.setAddress(data.getString("address"));
+        r.setValid(data.getInt("valid"));
+        rRepo.save(r);
+        return "modify user success";
+    }
+
+    public String deleteuserdata(JSONObject data){
+        System.out.println(data);
+        role r = rRepo.findOne(data.getLong("userid"));
+        rRepo.delete(r);
+        return "delete user success";
+    }
+
     public String register(JSONObject data){
         List<role> rlist = rRepo.findByEmail(data.getString("email"));
         if (!rlist.isEmpty()){
@@ -102,6 +123,7 @@ public class BookServiceImpl implements BookService {
         r.setPhone(data.getString("phone"));
         r.setWebsite(data.getString("website"));
         r.setType("user");
+        r.setValid(1);
         rRepo.save(r);
         return "register success";
     }
@@ -115,6 +137,9 @@ public class BookServiceImpl implements BookService {
             return "Username not exists";
         }
         role r = rlist.get(0);
+        if (r.getValid()==0){
+            return "Invalid account";
+        }
         System.out.println(r.toString());
         if (r.getPassword().equals(data.getString("password"))){
             return r.getType();
@@ -153,6 +178,29 @@ public class BookServiceImpl implements BookService {
         res.put("phone",r.getPhone());
         res.put("website",r.getWebsite());
         res.put("usertype",r.getType());
+        return res;
+    }
+
+    public JSONArray getAllUsers(){
+        Iterable<role> rlist = rRepo.findAll();
+        JSONArray res = new JSONArray();
+        int count = 0;
+        for(role r:rlist){
+            count +=1;
+            JSONObject item = new JSONObject();
+            item.accumulate("ID",count);
+            item.accumulate("userid",r.getId());
+            item.accumulate("nickname",r.getNickname());
+            item.accumulate("email",r.getEmail());
+            item.accumulate("password",r.getPassword());
+            item.accumulate("type",r.getType());
+            item.accumulate("website",r.getWebsite());
+            item.accumulate("address",r.getAddress());
+            item.accumulate("phone",r.getPhone());
+            item.accumulate("valid",r.getValid());
+            res.add(item);
+
+        }
         return res;
     }
 
